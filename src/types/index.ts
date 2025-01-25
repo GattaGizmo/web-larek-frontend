@@ -3,6 +3,10 @@ export interface IPage {
     basket: number;
 }
 
+export  interface IAPIResponse {
+    items: IProduct[];
+}
+
 export interface IProduct {
     id: string;
     title: string;
@@ -10,6 +14,7 @@ export interface IProduct {
     description: string;
     image: string;
     price: number;
+    picked: boolean;
 }
 
 export interface IOrder {
@@ -18,24 +23,81 @@ export interface IOrder {
     email: string;
     phone: string;
     items: string[];
-    totalPrice: number;
+    total: number;
+}
+
+export interface IOrderForm {
+    payment: string;
+    address: string;
+    email: string;
+    phone: string;
+}
+
+export interface IOrderPayment {
+    payment: string;
+    address: string;
+}
+
+export interface IUserContacts {
+    email: string;
+    phone: string;
 }
 
 export interface IBasket {
-    items: IProduct[];
+    items: HTMLElement[];
     totalPrice: number;
 }
 
-export type TProductList = Pick<IProduct, 'title' | 'image' | 'category' | 'price'>;
+export interface IBasketActions {
+    onClick: (event: MouseEvent) => void;
+}
 
-export type TProductModalInfo = Pick<IProduct, 'title' | 'price' | 'image' | 'category' | 'description'>;
+export interface IBasketWithProduct extends IProduct {
+    id: string;
+    index: number;
+}
 
-export type TPaymentMethod = 'online' | 'offline';
+export interface IAppData {
+    basket: IProduct[];
+    catalog: IProduct;
+    order: IOrder;
+    formErrors: ErrorsInForm;
+}
 
-export type TOrderDelivery = Pick<IOrder, 'payment' | 'address'>;
+export interface ICardProduct {
+    picked: boolean;
+    id: string;
+    category: string;
+    title: string;
+    image: string;
+    price: number;
+    description: string;
+}
 
-export type TOrderUserData = Pick<IOrder, 'email' | 'phone' | 'address'>;
+export interface ICardProductActions {
+    onClick: (event: MouseEvent) => void;
+}
 
-export type TBasket = Pick<IBasket, 'totalPrice'>;
+export interface IForm {
+    valid: boolean;
+    errors: string[];
+}
 
-export type TSuccessOrder = Pick<IBasket, 'totalPrice'>;
+export interface IModal {
+    content: HTMLElement;
+}
+
+export interface ISuccessOrder {
+    description: number;
+}
+export interface ISuccessOrderActions {
+    onClick: (event: MouseEvent) => void;
+}
+
+export type Category =  'софт-скил' | 'другое' | 'дополнительное' | 'кнопка' | 'хард-скил';
+
+export type CategoryChoice = {
+    [key in Category]: string;
+};
+
+export type ErrorsInForm = Partial<Record<keyof IOrder, string>>;

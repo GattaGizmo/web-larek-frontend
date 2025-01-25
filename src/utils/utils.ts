@@ -133,3 +133,15 @@ export function createElement<
     }
     return element;
 }
+
+export function formatNumberWithSpaces(number:number) {
+    let numberString = number.toString();
+    if (number < 10000) {
+        return numberString;
+    }  
+    else {      
+        let regex = /(?=\B(?:\d{3})+(?!\d))/g;
+        numberString = numberString.replace(regex, ' ');
+        return numberString;
+    }
+}
